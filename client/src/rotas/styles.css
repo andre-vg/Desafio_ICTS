@@ -1,0 +1,96 @@
+.dsc_produto_box {
+  width: 300px;
+  height: 70px;
+}
+
+h1 {
+  font-family: verdana;
+  font-size: 2em;
+  color: brown;
+}
+
+h2 {
+  font-family: verdana;
+  font-size: 1.8em;
+  color: red;
+}
+
+hr {
+  background-color: brown;
+  height: 5px;
+  border: none;
+}
+
+li {
+  padding: 10px;
+}
+
+a {
+  font-family: verdana;
+  font-size: 1.2em;
+}
+
+a:link {
+  text-decoration: none;
+  color: brown;
+}
+
+a:hover {
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+table {
+  padding: 20px;
+  font-family: verdana;
+  font-size: 1.2em;
+  color: brown;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px solid orange;
+  padding: 7px;
+  max-width: 400px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+select,
+input[type="text"] {
+  font-family: verdana;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: brown;
+}
+textarea[type="text"] {
+  font-family: verdana;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: brown;
+}
+
+input[type="number"] {
+  font-family: verdana;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: blue;
+}
+
+input[type="submit"] {
+  font-family: verdana;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: brown;
+  padding: 10px;
+}
+
+button {
+  font-family: verdana;
+  font-size: 1em;
+  font-weight: bold;
+  color: red;
+  padding: 7px;
+}

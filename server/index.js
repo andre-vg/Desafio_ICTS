@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const mysql = require('mysql')
-const bodyPaeser = require('body-parser')
+const bodyParser = require('body-parser')
 const cors = require('cors')
 
 
@@ -12,9 +12,11 @@ const db =mysql.createPool({
     database: 'vendas'
 });
 
+
+
 app.use(cors());
 app.use(express.json());
-app.use(bodyPaeser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({extended: true}));
 
 
 app.get('/api/get', (req, res)=>{
