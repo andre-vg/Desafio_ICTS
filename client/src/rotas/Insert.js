@@ -24,7 +24,7 @@ function Insert() {
       dsc_produto: dsc_produto, 
       preco_produto: preco_produto
     }).then(()=>{
-      alert("inserido")
+      alert("inserido");
     })
   };
 
