@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 
 app.get('/api/get', (req, res)=>{
-    const sqlSelect = "SELECT id_produto, nme_produto, dsc_produto, preco_produto, DATE_FORMAT(dta_cad_produto,'%d/%m/%Y %h:%i:%s')as dta_cad_produto, DATE_FORMAT(dta_mod_produto,'%d/%m/%Y %h:%i:%s')as dta_mod_produto from tb_produto ;"
+    const sqlSelect = "SELECT id_produto, nme_produto, dsc_produto, preco_produto, DATE_FORMAT(dta_cad_produto,'%d/%m/%Y %H:%i:%s')as dta_cad_produto, DATE_FORMAT(dta_mod_produto,'%d/%m/%Y %H:%i:%s')as dta_mod_produto from tb_produto ;"
     db.query(sqlSelect, (err, result)=>{
         res.send(result);
     });
@@ -31,11 +31,25 @@ app.get('/api/get', (req, res)=>{
 
 app.post('/api/getID', (req, res)=>{
     const newNme_produto = req.body.newNme_produto
-    let test = 'teste'
-    console.log(newNme_produto, test);
-    const sqlSelect = "select id_produto, nme_produto, dsc_produto, preco_produto, DATE_FORMAT(dta_cad_produto,'%d/%m/%Y %h:%i:%s')as dta_cad_produto, DATE_FORMAT(dta_mod_produto,'%d/%m/%Y %h:%i:%s')as dta_mod_produto from tb_produto where nme_produto like '%" + newNme_produto + "%';"
+    console.log(newNme_produto);
+    const sqlSelect = "select id_produto, nme_produto, dsc_produto, preco_produto, DATE_FORMAT(dta_cad_produto,'%d/%m/%Y %H:%i:%s')as dta_cad_produto, DATE_FORMAT(dta_mod_produto,'%d/%m/%Y %H:%i:%s')as dta_mod_produto from tb_produto where nme_produto like '%" + newNme_produto + "%';"
     
     db.query(sqlSelect, (err, result)=>{
+        if (err){
+            console.log(err);
+        } else{
+            res.send(result);
+            console.log(result);
+        }
+    });
+});
+
+app.post('/api/delete', (req, res)=>{
+    const id_produto = req.body.id_produto
+    console.log(id_produto);
+    const sqlSelect = "delete from tb_produto where id_produto = ?;"
+    
+    db.query(sqlSelect, [id_produto], (err, result)=>{
         if (err){
             console.log(err);
         } else{
