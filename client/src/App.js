@@ -12,25 +12,12 @@ import Insert from "./rotas/Insert";
 import Drop from "./rotas/Drop";
 import Read from "./rotas/Read";
 import Update from "./rotas/Update";
+import InsertCompra from "./compra/InsertCompra";
+import ReadCompra from "./compra/ReadCompra";
+import UpdateCompra from "./compra/UpdateCompra";
+import DropCompra from "./compra/DropCompra";
 
 function App() {
-  useEffect(() => {
-    const script = document.createElement("script");
-
-    script.src =
-      "https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js";
-    script.integrity =
-      "sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p";
-    script.crossOrigin = "anonymous";
-    script.async = true;
-
-    document.body.appendChild(script);
-
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
-
   return (
     <Router>
       <link
@@ -79,6 +66,10 @@ function App() {
           <Route path="/read" element={<Read />} />
           <Route path="/update" element={<Update />} />
           <Route path="/drop" element={<Drop />} />
+          <Route path="/ReadCompra" element={<ReadCompra />} />
+          <Route path="/UpdateCompra" element={<UpdateCompra />} />
+          <Route path="/DropCompra" element={<DropCompra />} />
+          <Route path="/InsertCompra" element={<InsertCompra />} />
         </Routes>
       </div>
     </Router>
