@@ -16,6 +16,7 @@ import InsertCompra from "./compra/InsertCompra";
 import ReadCompra from "./compra/ReadCompra";
 import UpdateCompra from "./compra/UpdateCompra";
 import DropCompra from "./compra/DropCompra";
+import './components/compras.css';
 
 function App() {
   return (
