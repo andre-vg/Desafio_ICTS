@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const { query } = require("express");
 
-const db = mysql.createPool({
+const db = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "",
@@ -95,6 +95,11 @@ app.post("/api/deleteCompra", (req, res) => {
       console.log(result);
     }
   });
+});
+
+app.post("/api/insertCompras", function (request, response, next) {
+  var carrinho = request.body.id_produto;
+  console.log(carrinho);
 });
 
 app.post("/api/update", (req, res) => {

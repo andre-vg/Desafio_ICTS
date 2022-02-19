@@ -1,8 +1,18 @@
+import { Axios } from "axios";
 import React from "react";
 
 function Basket(props) {
   const { carrinho, addCarrinho, removeCarrinho } = props;
   const precoTotal = carrinho.reduce((a, c) => a + c.preco_produto * c.qtd, 0);
+
+  const submitCompra = () => {
+    Axios.post("http://localhost:3001/api/insertCompra", {
+      precoTotal: carrinho.precoTotal,
+    }).then(() => {
+      alert("inserido");
+    });
+  };
+
   return (
     <aside className="blocked coluna-1">
       <h2>Items Carrinho</h2>
@@ -11,12 +21,18 @@ function Basket(props) {
         <div key={item.id_produto} className="linha">
           <div className="coluna-2">{item.nme_produto}</div>
           <div className="coluna-2">
-            <button onClick={() => addCarrinho(item)} className="add">
+            <button
+              onClick={() => addCarrinho(item)}
+              className="btn btn-primary btn-sm"
+            >
               +
             </button>
           </div>
           <div>
-            <button onClick={() => removeCarrinho(item)} className="remove">
+            <button
+              onClick={() => removeCarrinho(item)}
+              className="btn btn-danger btn-sm"
+            >
               -
             </button>
           </div>
@@ -38,9 +54,11 @@ function Basket(props) {
           </div>
           <hr />
           <div className="linha">
-            <button onClick={() => alert("compra feita")}>
-              Efutuar Compra
-            </button>
+            <div className="coluna-2">
+              <button onClick={submitCompra} className="btn btn-warning center">
+                <strong>Efetuar Compra</strong>
+              </button>
+            </div>
           </div>
         </>
       )}

@@ -1,96 +1,46 @@
-.dsc_produto_box {
-  width: 300px;
-  height: 70px;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap");
+
+body {
+  font-family: "Montserrat", sans-serif;
 }
 
+h1,
+h2,
+h3 {
+  margin: 0.5rem 0;
+}
 h1 {
-  font-family: verdana;
-  font-size: 2em;
-  color: brown;
+  font-size: 1.5rem;
 }
-
 h2 {
-  font-family: verdana;
-  font-size: 1.8em;
-  color: red;
+  font-size: 1.2rem;
+}
+h3 {
+  font-size: 1rem;
 }
 
-hr {
-  background-color: brown;
-  height: 5px;
-  border: none;
+.linha {
+  display: flex;
+  justify-content: space-between;
 }
-
-li {
-  padding: 10px;
+.coluna-1 {
+  flex: 1;
 }
-
+.coluna-2 {
+  flex: 2;
+}
+.blocked {
+  background-color: #e0e0e0;
+  padding: 1rem;
+  margin: 0.5rem;
+  border-radius: 1.5rem;
+}
+.linha.center {
+  align-items: center;
+}
 a {
-  font-family: verdana;
-  font-size: 1.2em;
-}
-
-a:link {
   text-decoration: none;
-  color: brown;
 }
-
-a:hover {
-  font-weight: bold;
-  transition: 0.3s;
-}
-
-table {
-  padding: 20px;
-  font-family: verdana;
-  font-size: 1.2em;
-  color: brown;
-  border-collapse: collapse;
-}
-
-th,
-td {
-  border: 1px solid orange;
-  padding: 7px;
-  max-width: 400px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-select,
-input[type="text"] {
-  font-family: verdana;
-  font-size: 1.2em;
-  font-weight: bold;
-  color: brown;
-}
-textarea[type="text"] {
-  font-family: verdana;
-  font-size: 1.2em;
-  font-weight: bold;
-  color: brown;
-}
-
-input[type="number"] {
-  font-family: verdana;
-  font-size: 1.2em;
-  font-weight: bold;
-  color: blue;
-}
-
-input[type="submit"] {
-  font-family: verdana;
-  font-size: 1.2em;
-  font-weight: bold;
-  color: brown;
-  padding: 10px;
-}
-
-button {
-  font-family: verdana;
-  font-size: 1em;
-  font-weight: bold;
-  color: red;
-  padding: 7px;
+.center {
+  align-items: center;
 }

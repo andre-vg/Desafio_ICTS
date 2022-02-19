@@ -4,13 +4,12 @@ import "../components/compras.css";
 import Header from "../components/Header";
 import Main from "../components/Main";
 import Basket from "../components/Basket";
+import axios from "axios";
 
 function InsertCompra() {
-  /**const [nme_produto, setnme_produto] = useState("");
-  const [dsc_produto, setdsc_produto] = useState("");
-  const [preco_produto, setpreco_produto] = useState("");**/
-  const [listaProduto, setListaProduto] = useState([]);
   const [carrinho, setCarrinho] = useState([]);
+  const [listaProduto, setListaProduto] = useState([]);
+
   const addCarrinho = (val) => {
     const existe = carrinho.find((x) => x.id_produto === val.id_produto);
     if (existe) {
@@ -41,8 +40,10 @@ function InsertCompra() {
     }
   };
 
-  Axios.get("http://localhost:3001/api/get").then((response) => {
-    setListaProduto(response.data);
+  useEffect(() => {
+    axios.get("http://localhost:3001/api/get").then((response) => {
+      setListaProduto(response.data);
+    });
   });
 
   return (
