@@ -97,9 +97,35 @@ app.post("/api/deleteCompra", (req, res) => {
   });
 });
 
-app.post("/api/insertCompras", function (request, response, next) {
-  var carrinho = request.body.id_produto;
-  console.log(carrinho);
+app.post("/api/insertCompra", (req, res) => {
+  const id_produto = req.body.id_produto;
+  const qtd = req.body.qtd;
+  const precoTotal = req.body.precoTotal;
+  console.log(id_produto);
+  console.log(qtd);
+
+  const sqlInsert =
+    "INSERT INTO `vendas`.`ta_compra_produto` (`cod_compra`, `cod_produto`, `qtd_produto`) VALUES (last_insert_id(), ?, ?);";
+  db.query(sqlInsert, [id_produto, qtd], (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(result);
+    }
+  });
+});
+
+app.post("/api/insertTBCompra", (req, res) => {
+  const precoTotal = req.body.precoTotal;
+  const sqlInsert =
+    "INSERT INTO tb_compra(total, dta_cad_compra, tipo_pagamento, status) VALUES ( ?,now(), 'Crédito', 'teste');";
+  db.query(sqlInsert, [precoTotal], (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(result);
+    }
+  });
 });
 
 app.post("/api/update", (req, res) => {

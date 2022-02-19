@@ -1,14 +1,21 @@
 import React, { useState, useEffect } from "react";
-import Axios from "axios";
+import axios from "axios";
 import "../components/compras.css";
 import Header from "../components/Header";
 import Main from "../components/Main";
 import Basket from "../components/Basket";
-import axios from "axios";
 
 function InsertCompra() {
   const [carrinho, setCarrinho] = useState([]);
   const [listaProduto, setListaProduto] = useState([]);
+  const precoTotal = carrinho.reduce((a, c) => a + c.preco_produto * c.qtd, 0);
+  let valores = carrinho.reduce((o, a) => {
+    let ini = [];
+    ini.push(a.id_produto);
+    ini.push(a.qtd);
+    o.push(ini);
+    return o;
+  }, []);
 
   const addCarrinho = (val) => {
     const existe = carrinho.find((x) => x.id_produto === val.id_produto);
@@ -40,22 +47,114 @@ function InsertCompra() {
     }
   };
 
+  const submitCompra = () => {
+    axios
+      .post("http://localhost:3001/api/insertTBCompra", {
+        precoTotal: precoTotal,
+      })
+      .then(() => {
+        console.log("Inserido");
+      });
+
+    for (const val of carrinho) {
+      axios
+        .post("http://localhost:3001/api/insertCompra", {
+          id_produto: val.id_produto,
+          qtd: val.qtd,
+        })
+        .then(() => {
+          console.log("Inserido");
+        });
+    }
+  };
+
   useEffect(() => {
     axios.get("http://localhost:3001/api/get").then((response) => {
       setListaProduto(response.data);
     });
-  });
+  }, []);
 
   return (
     <div className="Compra">
-      <Header></Header>
+      <header className="linha blocked center">
+        <div>
+          <h1>Compras</h1>
+        </div>
+      </header>
       <div className="linha">
-        <Main addCarrinho={addCarrinho} listaProduto={listaProduto}></Main>
-        <Basket
-          addCarrinho={addCarrinho}
-          removeCarrinho={removeCarrinho}
-          carrinho={carrinho}
-        ></Basket>
+        <main className="blocked coluna-2">
+          <h3>Produtos</h3>
+          <div className="linha">
+            {listaProduto.map((val) => (
+              <div>
+                <h5>{val.nme_produto}</h5>
+                <div>R${val.preco_produto}</div>
+                <div>
+                  <button
+                    onClick={() => addCarrinho(val)}
+                    class="btn btn-warning btn-sm"
+                  >
+                    Adicionar ao carrinho
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </main>
+        <aside className="blocked coluna-1">
+          <h2>Items Carrinho</h2>
+          <div>
+            {carrinho.length === 0 && <div>Sem itens no carrinho.</div>}
+          </div>
+          {carrinho.map((item) => (
+            <div key={item.id_produto} className="linha">
+              <div className="coluna-2">{item.nme_produto}</div>
+              <div className="coluna-2">
+                <button
+                  onClick={() => addCarrinho(item)}
+                  className="btn btn-primary btn-sm"
+                >
+                  +
+                </button>
+              </div>
+              <div>
+                <button
+                  onClick={() => removeCarrinho(item)}
+                  className="btn btn-danger btn-sm"
+                >
+                  -
+                </button>
+              </div>
+              <div className="coluna-2">
+                {item.qtd} x R$ {item.preco_produto.toFixed(2)}
+              </div>
+            </div>
+          ))}
+          {carrinho.length !== 0 && (
+            <>
+              <hr></hr>
+              <div className="linha">
+                <div className="coluna-2">
+                  <strong>Preço Total</strong>
+                </div>
+                <div className="coluna-1">
+                  <strong>R$ {precoTotal.toFixed(2)}</strong>
+                </div>
+              </div>
+              <hr />
+              <div className="linha">
+                <div className="coluna-2">
+                  <button
+                    onClick={submitCompra}
+                    className="btn btn-warning center"
+                  >
+                    <strong>Efetuar Compra</strong>
+                  </button>
+                </div>
+              </div>
+            </>
+          )}
+        </aside>
       </div>
     </div>
   );
