@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/api/get", (req, res) => {
   const sqlSelect =
-    "SELECT id_produto, nme_produto, dsc_produto, preco_produto, DATE_FORMAT(dta_cad_produto,'%d/%m/%Y %H:%i:%s')as dta_cad_produto, DATE_FORMAT(dta_mod_produto,'%d/%m/%Y %H:%i:%s')as dta_mod_produto from tb_produto ;";
+    "SELECT id_produto, nme_produto, left(dsc_produto,100) as dsc_produto, preco_produto, DATE_FORMAT(dta_cad_produto,'%d/%m/%Y %H:%i:%s')as dta_cad_produto, DATE_FORMAT(dta_mod_produto,'%d/%m/%Y %h:%i:%s')as dta_mod_produto from tb_produto ;";
   db.query(sqlSelect, (err, result) => {
     res.send(result);
   });
@@ -26,7 +26,7 @@ app.get("/api/get", (req, res) => {
 
 app.get("/api/ReadCompras", (req, res) => {
   const sqlSelect =
-    "select tc.id_compra, tc.total, sum(qtd_produto) as 'qtd_produtos', DATE_FORMAT(tc.dta_cad_compra,'%d/%m/%Y') as dta_cad_compra, tc.tipo_pagamento, tc.status from tb_compra tc join ta_compra_produto tcp on tc.id_compra = tcp.cod_compra;";
+    "select tc.id_compra, tc.total, sum(qtd_produto) as 'qtd_produtos', DATE_FORMAT(tc.dta_cad_compra,'%d/%m/%Y') as dta_cad_compra, tc.tipo_pagamento, tc.status from tb_compra tc join ta_compra_produto tcp on tc.id_compra = tcp.cod_compra group by cod_compra;";
   db.query(sqlSelect, (err, result) => {
     res.send(result);
   });
