@@ -75,7 +75,7 @@ function InsertCompra() {
   }, []);
 
   return (
-    <div className="Compra">
+    <div className="App">
       <header className="linha blocked center">
         <div>
           <h1>Compras</h1>
@@ -83,10 +83,10 @@ function InsertCompra() {
       </header>
       <div className="linha">
         <main className="blocked coluna-2">
-          <h3>Produtos</h3>
-          <div className="linha">
-            {listaProduto.map((val) => (
-              <div>
+          <h2>Produtos</h2>
+          {listaProduto.map((val) => (
+            <div className="linha alinhado">
+              <div className="boxProduto">
                 <h5>{val.nme_produto}</h5>
                 <div>R${val.preco_produto}</div>
                 <div>
@@ -98,8 +98,8 @@ function InsertCompra() {
                   </button>
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </main>
         <aside className="blocked coluna-1">
           <h2>Items Carrinho</h2>
@@ -134,7 +134,7 @@ function InsertCompra() {
             <>
               <hr></hr>
               <div className="linha">
-                <div className="coluna-2">
+                <div className="coluna-2 total">
                   <strong>Preço Total</strong>
                 </div>
                 <div className="coluna-1">

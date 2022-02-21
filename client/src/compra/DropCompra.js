@@ -32,31 +32,46 @@ function DropCompra() {
         rel="stylesheet"
       ></link>
 
-      <form>
-        <input
-          type="number"
-          placeholder="ID da compra"
-          name="id_compra"
-          min="0"
-          onChange={(event) => {
-            setid_compra(event.target.value);
-          }}
-        />
-      </form>
+      <div className="updatediv">
+        <br />
+        <form>
+          <label>ID da compra: </label>
+          <input
+            type="number"
+            placeholder="ID da compra"
+            name="id_compra"
+            min="0"
+            onChange={(event) => {
+              setid_compra(event.target.value);
+            }}
+          />
+        </form>
 
-      <button onClick={selectCompraID}>Detalhe por ID</button>
-      <button onClick={deleteCompra}>Deletar por ID</button>
+        <div className="d-grid gap-1 col-2">
+          <button onClick={selectCompraID} className="btn btn-secondary">
+            Detalhe por ID
+          </button>
+          <button
+            type="submit"
+            onClick={deleteCompra}
+            className="btn btn-outline-danger"
+          >
+            Deletar por ID
+          </button>
+        </div>
+        <br />
+      </div>
 
-      <table>
-        <tbody>
+      <table className="table table-striped table-hover">
+        <thead className="table-dark">
           <tr>
-            <th>id_compra</th>
-            <th>nme_produto</th>
-            <th>dsc_produto</th>
-            <th>preco_produto</th>
-            <th>qtd_produto</th>
+            <th>ID</th>
+            <th>Nome Produto</th>
+            <th>Descrição Produto</th>
+            <th>Preço Produto</th>
+            <th>Quantidade</th>
           </tr>
-        </tbody>
+        </thead>
 
         {compraDetalhe.map((value) => {
           return (

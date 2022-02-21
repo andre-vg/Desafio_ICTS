@@ -30,47 +30,56 @@ function Insert() {
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
         rel="stylesheet"
       ></link>
-      <h1>CRUD</h1>
-      <form className="crud-form">
-        <input
-          type="text"
-          name="nme_produto"
-          placeholder="Nome do Produto"
-          onChange={(e) => {
-            setnme_produto(e.target.value);
-          }}
-          required
-        />
+      <div className="centerdiv">
+        <h1>Adicionar</h1>
+        <form className="crud-form">
+          <label>Nome produto: </label>
+          <input
+            type="text"
+            name="nme_produto"
+            placeholder="Nome do Produto"
+            onChange={(e) => {
+              setnme_produto(e.target.value);
+            }}
+            required
+          />
+          <br />
+          <br />
+          <label>Descrição produto: </label>
+          <textarea
+            type="text"
+            className="dsc_produto_box"
+            name="dsc_produto"
+            placeholder="Descrição max(2000)"
+            onChange={(e) => {
+              setdsc_produto(e.target.value);
+            }}
+            required
+          />
+          <br />
+          <br />
+          <label>Preço : </label>
+          <input
+            type="text"
+            name="preco_produto"
+            placeholder="0000.00"
+            onChange={(e) => {
+              setpreco_produto(e.target.value);
+            }}
+            required
+          />
+          <br />
+          <br />
+          <button
+            onClick={submitProduto}
+            type="submit"
+            className="btn btn-outline-success col-5"
+          >
+            Enviar
+          </button>
+        </form>
         <br />
-        <textarea
-          type="text"
-          className="dsc_produto_box"
-          name="dsc_produto"
-          placeholder="Descrição max(2000)"
-          onChange={(e) => {
-            setdsc_produto(e.target.value);
-          }}
-          required
-        />
-        <br />
-        <input
-          type="text"
-          name="preco_produto"
-          placeholder="0000.00"
-          onChange={(e) => {
-            setpreco_produto(e.target.value);
-          }}
-          required
-        />
-        <br />
-        <button
-          onClick={submitProduto}
-          type="submit"
-          className="btn btn-outline-dark"
-        >
-          Enviar
-        </button>
-      </form>
+      </div>
     </div>
   );
 }

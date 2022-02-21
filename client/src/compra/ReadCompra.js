@@ -17,22 +17,33 @@ function ReadCompra() {
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
         rel="stylesheet"
       ></link>
-      <button onClick={selectNme}>Mostrar Produtos</button>
-      <table>
-        <tbody>
+      <div className="updatediv">
+        <br />
+        <div className="d-grid col-2 align-content">
+          <button onClick={selectNme} className="btn btn-outline-primary">
+            Mostrar Compras
+          </button>
+          <br />
+        </div>
+      </div>
+
+      <table className="table table-striped table-hover">
+        <thead className="table-dark">
           <tr>
-            <th>id_compra</th>
-            <th>qtd_produtos</th>
-            <th>dta_cad_compra</th>
-            <th>tipo_pagamento</th>
-            <th>status</th>
+            <th>ID</th>
+            <th>Total</th>
+            <th>Quantidade de Produtos</th>
+            <th>Data da Compra</th>
+            <th>Tipo de Pagamento</th>
+            <th>Status</th>
           </tr>
-        </tbody>
+        </thead>
         {listaCompra.map((val) => {
           return (
             <tbody>
               <tr>
                 <td key="{id_compra}">{val.id_compra}</td>
+                <td key="{total}">{val.total}</td>
                 <td key="{qtd_produtos}">{val.qtd_produtos}</td>
                 <td key="{dta_cad_compra}">{val.dta_cad_compra}</td>
                 <td key="{tipo_pagamento}">{val.tipo_pagamento}</td>

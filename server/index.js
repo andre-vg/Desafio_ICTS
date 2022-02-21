@@ -10,6 +10,7 @@ const db = mysql.createConnection({
   user: "root",
   password: "",
   database: "vendas",
+  multipleStatements: true,
 });
 
 app.use(cors());
@@ -26,7 +27,7 @@ app.get("/api/get", (req, res) => {
 
 app.get("/api/ReadCompras", (req, res) => {
   const sqlSelect =
-    "select tc.id_compra, tc.total, sum(qtd_produto) as 'qtd_produtos', DATE_FORMAT(tc.dta_cad_compra,'%d/%m/%Y') as dta_cad_compra, tc.tipo_pagamento, tc.status from tb_compra tc join ta_compra_produto tcp on tc.id_compra = tcp.cod_compra group by cod_compra;";
+    "select tc.id_compra, cast((tc.total) AS DECIMAL(10,2)) as total, sum(qtd_produto) as 'qtd_produtos', DATE_FORMAT(tc.dta_cad_compra,'%d/%m/%Y') as dta_cad_compra, tc.tipo_pagamento, tc.status from tb_compra tc join ta_compra_produto tcp on tc.id_compra = tcp.cod_compra group by cod_compra;";
   db.query(sqlSelect, (err, result) => {
     res.send(result);
   });
@@ -36,7 +37,7 @@ app.post("/api/getID", (req, res) => {
   const newNme_produto = req.body.newNme_produto;
   console.log(newNme_produto);
   const sqlSelect =
-    "select id_produto, nme_produto, dsc_produto, preco_produto, DATE_FORMAT(dta_cad_produto,'%d/%m/%Y %H:%i:%s')as dta_cad_produto, DATE_FORMAT(dta_mod_produto,'%d/%m/%Y %H:%i:%s')as dta_mod_produto from tb_produto where nme_produto like '%" +
+    "select id_produto, nme_produto, left(dsc_produto,100) as dsc_produto, preco_produto, DATE_FORMAT(dta_cad_produto,'%d/%m/%Y %H:%i:%s')as dta_cad_produto, DATE_FORMAT(dta_mod_produto,'%d/%m/%Y %H:%i:%s')as dta_mod_produto from tb_produto where nme_produto like '%" +
     newNme_produto +
     "%';";
 
@@ -55,7 +56,7 @@ app.post("/api/ReadComprasID", (req, res) => {
   const teste = "1";
   console.log(id_compra);
   const sqlSelect =
-    "select cod_compra, nme_produto, dsc_produto, preco_produto, tcp.qtd_produto from ta_compra_produto tcp join tb_produto tp on tcp.cod_produto = tp.id_produto where cod_compra = ?;";
+    "select cod_compra, nme_produto, left(dsc_produto,100) as dsc_produto, preco_produto, tcp.qtd_produto from ta_compra_produto tcp join tb_produto tp on tcp.cod_produto = tp.id_produto where cod_compra = ?;";
 
   db.query(sqlSelect, [id_compra], (err, result) => {
     if (err) {
@@ -70,7 +71,8 @@ app.post("/api/ReadComprasID", (req, res) => {
 app.post("/api/delete", (req, res) => {
   const id_produto = req.body.id_produto;
   console.log(id_produto);
-  const sqlSelect = "delete from tb_produto where id_produto = ?;";
+  const sqlSelect =
+    "Start transaction; SET foreign_key_checks = 0; delete from tb_produto where id_produto = ?; commit;";
 
   db.query(sqlSelect, [id_produto], (err, result) => {
     if (err) {
@@ -85,7 +87,8 @@ app.post("/api/delete", (req, res) => {
 app.post("/api/deleteCompra", (req, res) => {
   const id_compra = req.body.id_compra;
   console.log(id_compra);
-  const sqlSelect = "delete from tb_compra where id_compra = ?;";
+  const sqlSelect =
+    "SET foreign_key_checks = 0; delete from tb_compra where id_compra = ?;";
 
   db.query(sqlSelect, [id_compra], (err, result) => {
     if (err) {
