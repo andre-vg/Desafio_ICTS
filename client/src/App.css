@@ -1,3 +1,28 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+
+.readme {
+  font-family: Montserrat;
+}
+
 .App {
   text-align: center;
+}
+h1,
+h2,
+h3 {
+  color: #040418;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+.readme {
+  align-items: center;
+}
+.readme h1,
+.readme h2,
+.readme h3 {
+  color: #040418;
 }

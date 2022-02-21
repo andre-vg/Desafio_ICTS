@@ -7,16 +7,16 @@ import {
   Routes,
 } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import { NavDropdown, Nav, Navbar, Container } from "react-bootstrap";
+import { NavDropdown, Nav, Navbar, Container, NavItem } from "react-bootstrap";
 import Insert from "./rotas/Insert";
 import Drop from "./rotas/Drop";
 import Read from "./rotas/Read";
 import Update from "./rotas/Update";
 import InsertCompra from "./compra/InsertCompra";
 import ReadCompra from "./compra/ReadCompra";
-import UpdateCompra from "./compra/UpdateCompra";
 import DropCompra from "./compra/DropCompra";
-import './components/compras.css';
+import "./components/compras.css";
+import Readme from "./rotas/Readme";
 
 function App() {
   return (
@@ -32,6 +32,7 @@ function App() {
             <Navbar.Toggle aria-controls="navbar-dark-example" />
             <Navbar.Collapse id="navbar-dark-example">
               <Nav>
+                <Nav.Link href="/readme">Readme</Nav.Link>
                 <NavDropdown
                   id="nav-dropdown-dark-example"
                   title="Produto"
@@ -52,9 +53,6 @@ function App() {
                     Create
                   </NavDropdown.Item>
                   <NavDropdown.Item href="/ReadCompra">Read</NavDropdown.Item>
-                  <NavDropdown.Item href="/UpdateCompra">
-                    Update
-                  </NavDropdown.Item>
                   <NavDropdown.Item href="/DropCompra">Delete</NavDropdown.Item>
                 </NavDropdown>
               </Nav>
@@ -68,9 +66,9 @@ function App() {
           <Route path="/update" element={<Update />} />
           <Route path="/drop" element={<Drop />} />
           <Route path="/ReadCompra" element={<ReadCompra />} />
-          <Route path="/UpdateCompra" element={<UpdateCompra />} />
           <Route path="/DropCompra" element={<DropCompra />} />
           <Route path="/InsertCompra" element={<InsertCompra />} />
+          <Route path="/readme" element={<Readme />} />
         </Routes>
       </div>
     </Router>
