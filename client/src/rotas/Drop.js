@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Axios from "axios";
 import "./styles.css";
 
@@ -17,7 +17,7 @@ function Drop() {
 
   const deleteTabela = () => {
     if (
-      window.confirm("Deseja deletar produto: " + id_produto + " ?") == false
+      window.confirm("Deseja deletar produto: " + id_produto + " ?") === false
     ) {
       return false;
     } else {

@@ -1,21 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../components/compras.css";
-import Header from "../components/Header";
-import Main from "../components/Main";
-import Basket from "../components/Basket";
 
 function InsertCompra() {
   const [carrinho, setCarrinho] = useState([]);
   const [listaProduto, setListaProduto] = useState([]);
   const precoTotal = carrinho.reduce((a, c) => a + c.preco_produto * c.qtd, 0);
-  let valores = carrinho.reduce((o, a) => {
-    let ini = [];
-    ini.push(a.id_produto);
-    ini.push(a.qtd);
-    o.push(ini);
-    return o;
-  }, []);
 
   const addCarrinho = (val) => {
     const existe = carrinho.find((x) => x.id_produto === val.id_produto);
@@ -48,23 +38,30 @@ function InsertCompra() {
   };
 
   const submitCompra = () => {
-    axios
-      .post("http://localhost:3001/api/insertTBCompra", {
-        precoTotal: precoTotal,
-      })
-      .then(() => {
-        console.log("Inserido");
-      });
-
-    for (const val of carrinho) {
+    if (
+      window.confirm("Confirmar compra no valor de: " + precoTotal + " ?") ===
+      false
+    ) {
+      return false;
+    } else {
       axios
-        .post("http://localhost:3001/api/insertCompra", {
-          id_produto: val.id_produto,
-          qtd: val.qtd,
+        .post("http://localhost:3001/api/insertTBCompra", {
+          precoTotal: precoTotal,
         })
         .then(() => {
           console.log("Inserido");
         });
+
+      for (const val of carrinho) {
+        axios
+          .post("http://localhost:3001/api/insertCompra", {
+            id_produto: val.id_produto,
+            qtd: val.qtd,
+          })
+          .then(() => {
+            console.log("Inserido");
+          });
+      }
     }
   };
 

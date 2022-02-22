@@ -17,7 +17,6 @@ function Read() {
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
         rel="stylesheet"
       ></link>
-      <br />
       <table className="table table-striped table-hover">
         <thead className="table-dark">
           <tr>

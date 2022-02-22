@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Axios from "axios";
 import "./styles.css";
 
 function Update() {
-  const [nme_produto, setnme_produto] = useState("");
   const [id_produto, setid_produto] = useState(0);
   const [newNme_produto, setNewnme_produto] = useState("");
   const [dsc_produto, setdsc_produto] = useState("");
@@ -19,14 +18,22 @@ function Update() {
   };
 
   const updateTabela = () => {
-    Axios.post("http://localhost:3001/api/update", {
-      newNme_produto: newNme_produto,
-      dsc_produto: dsc_produto,
-      preco_produto: preco_produto,
-      id_produto: id_produto,
-    }).then(() => {
-      alert("update");
-    });
+    if (
+      window.confirm(
+        "Deseja aplicar alterações no produto ID:" + id_produto + " ?"
+      ) === false
+    ) {
+      return false;
+    } else {
+      Axios.post("http://localhost:3001/api/update", {
+        newNme_produto: newNme_produto,
+        dsc_produto: dsc_produto,
+        preco_produto: preco_produto,
+        id_produto: id_produto,
+      }).then(() => {
+        alert("update");
+      });
+    }
   };
 
   return (

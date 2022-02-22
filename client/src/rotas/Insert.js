@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Axios from "axios";
 import "./styles.css";
 
@@ -6,22 +6,21 @@ function Insert() {
   const [nme_produto, setnme_produto] = useState("");
   const [dsc_produto, setdsc_produto] = useState("");
   const [preco_produto, setpreco_produto] = useState("");
-  const [listaProduto, setListaProduto] = useState([]);
-
-  useEffect(() => {
-    Axios.get("http://localhost:3001/api/get").then((response) => {
-      setListaProduto(response.data);
-    });
-  }, []);
 
   const submitProduto = () => {
-    Axios.post("http://localhost:3001/api/insert", {
-      nme_produto: nme_produto,
-      dsc_produto: dsc_produto,
-      preco_produto: preco_produto,
-    }).then(() => {
-      alert("inserido");
-    });
+    if (
+      window.confirm("Deseja criar o produto: " + nme_produto + " ?") === false
+    ) {
+      return false;
+    } else {
+      Axios.post("http://localhost:3001/api/insert", {
+        nme_produto: nme_produto,
+        dsc_produto: dsc_produto,
+        preco_produto: preco_produto,
+      }).then(() => {
+        window.alert("inserido");
+      });
+    }
   };
 
   return (

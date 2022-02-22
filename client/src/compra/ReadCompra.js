@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import Axios from "axios";
+import axios from "axios";
 import "../rotas/styles.css";
 
 function ReadCompra() {
   const [listaCompra, setListaCompra] = useState([]);
 
-  const selectNme = () => {
-    Axios.get("http://localhost:3001/api/ReadCompras").then((response) => {
+  useEffect(() => {
+    axios.get("http://localhost:3001/api/ReadCompras").then((response) => {
       setListaCompra(response.data);
     });
-  };
+  }, []);
 
   return (
     <div className="App">
@@ -17,15 +17,6 @@ function ReadCompra() {
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
         rel="stylesheet"
       ></link>
-      <div className="updatediv">
-        <br />
-        <div className="d-grid col-2 align-content">
-          <button onClick={selectNme} className="btn btn-outline-primary">
-            Mostrar Compras
-          </button>
-          <br />
-        </div>
-      </div>
 
       <table className="table table-striped table-hover">
         <thead className="table-dark">

@@ -121,7 +121,7 @@ app.post("/api/insertCompra", (req, res) => {
 app.post("/api/insertTBCompra", (req, res) => {
   const precoTotal = req.body.precoTotal;
   const sqlInsert =
-    "INSERT INTO tb_compra(total, dta_cad_compra, tipo_pagamento, status) VALUES ( ?,now(), 'Crédito', 'teste');";
+    "INSERT INTO tb_compra(total, dta_cad_compra, tipo_pagamento, status) VALUES ( ?,now(), 'Crédito', 'Aprovado');";
   db.query(sqlInsert, [precoTotal], (err, result) => {
     if (err) {
       console.log(err);
